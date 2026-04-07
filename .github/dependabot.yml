@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directories:
+      - "/"
+      - "/openai-agents-sdk"
+      - "/pydantic-ai"
+      - "/claude-agent-sdk"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "pip"
+      - "dependencies"
+    ignore:
+      - dependency-name: "slack-bolt"
+        # Vendored from bolt-python main — managed via /project:update-bolt
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
