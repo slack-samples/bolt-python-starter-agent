@@ -6,11 +6,11 @@ A minimal starter template for building AI-powered Slack agents with [Bolt for P
 
 This repo contains the same app built with three different AI agent frameworks. Pick the one that fits your stack:
 
-| App | Framework | Get started | Directory |
+| App | Directory | Get Started | Framework |
 |-----|-----------|-------------|-----------|
-| **Claude Agent SDK** | [claude-agent-sdk](https://docs.anthropic.com/en/docs/agents/claude-agent-sdk) | [View README](./claude-agent-sdk/README.md) | `claude-agent-sdk/` |
-| **OpenAI Agents SDK** | [openai-agents](https://openai.github.io/openai-agents-python/) | [View README](./openai-agents-sdk/README.md) | `openai-agents-sdk/` |
-| **Pydantic AI** | [pydantic-ai](https://ai.pydantic.dev/) | [View README](./pydantic-ai/README.md) | `pydantic-ai/` |
+| **Claude Agent SDK** | `claude-agent-sdk/` | [View README](./claude-agent-sdk/README.md) | [claude-agent-sdk](https://docs.anthropic.com/en/docs/agents/claude-agent-sdk) |
+| **OpenAI Agents SDK** | `openai-agents-sdk/` | [View README](./openai-agents-sdk/README.md) | [openai-agents](https://openai.github.io/openai-agents-python/) |
+| **Pydantic AI** | `pydantic-ai/` | [View README](./pydantic-ai/README.md) | [pydantic-ai](https://ai.pydantic.dev/) |
 
 All implementations share the same Slack listener layer and the same user experience. The only difference is how the agent is defined and executed under the hood.
 
