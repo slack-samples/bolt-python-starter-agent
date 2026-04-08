@@ -13,7 +13,7 @@
       "messages_tab_read_only_enabled": false
     },
     "bot_user": {
-      "display_name": "Starter Agent - Pydantic AI",
+      "display_name": "Starter Agent - Pydantic AI (Python)",
       "always_online": false
     }
   },
