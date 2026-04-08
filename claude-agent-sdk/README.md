@@ -231,7 +231,7 @@ Once the agent is running, there are three ways to interact:
 
 **App Home** -- Open the agent in Slack and click the _Home_ tab. You'll see a welcome message and the Slack MCP Server connection status.
 
-**Direct Messages** -- Open a DM with the agent and send a message. The agent will react with :eyes: while processing, then reply in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
+**Direct Messages** -- Open a DM with the agent and send a message. It will reply in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
 
 **Channel @mentions** -- In any channel where the agent has been added, mention it followed by your message. The agent responds in a thread so the channel stays clean.
 
@@ -289,3 +289,19 @@ The `tools` directory contains one example tool (emoji reaction) defined using t
 ### `/thread_context`
 
 The `store.py` file implements a thread-safe in-memory session ID store, keyed by channel and thread. The Claude Agent SDK manages conversation history server-side via sessions, so only session IDs need to be tracked locally for resuming conversations.
+
+## Troubleshooting
+
+### MCP Server connection error: `HTTP error 400 (Bad Request)`
+
+If you see an error like:
+
+```
+Failed to connect to MCP server 'streamable_http: https://mcp.slack.com/mcp': HTTP error 400 (Bad Request)
+```
+
+This means the Slack MCP feature has not been enabled for your app. There is no manifest property for this yet, so it must be toggled on manually:
+
+1. Run `slack app settings` to open your app's settings page (or visit [api.slack.com/apps](https://api.slack.com/apps) and select your app)
+2. Navigate to **Agents & AI Apps** in the left-side navigation
+3. Toggle **Slack Model Context Protocol** on
