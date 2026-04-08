@@ -29,7 +29,6 @@ include = ["agent*", "listeners*", "thread_context*"]
 [tool.ruff.format]
 
 [tool.pytest.ini_options]
-asyncio_mode = "auto"
 testpaths = ["tests"]
 log_file = "logs/pytest.log"
 log_file_level = "DEBUG"
