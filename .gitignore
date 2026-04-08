@@ -10,3 +10,6 @@
 # Slack App Templates
 */.slack/apps.json
 */.slack/apps.dev.json
+
+# macOS
+.DS_Store

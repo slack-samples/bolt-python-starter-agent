@@ -33,8 +33,10 @@ pip
 
 # misc
 tmp.txt
-.DS_Store
 logs/
+
+# macOS
+.DS_Store
 *.db
 .pytype/
 .idea/
