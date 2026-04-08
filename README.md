@@ -18,9 +18,9 @@ All implementations share the same Slack listener layer and the same user experi
 
 The starter agent interacts with users through three entry points:
 
-* **App Home** -- Displays a welcome message and Slack MCP Server connection status.
-* **Direct Messages** -- Users message the agent directly. It responds in-thread, maintaining context across follow-ups.
-* **Channel @mentions** -- Mention the agent in any channel to get a response without leaving the conversation.
+* **App Home** — Displays a welcome message and Slack MCP Server connection status.
+* **Direct Messages** — Users message the agent directly. It responds in-thread, maintaining context across follow-ups.
+* **Channel @mentions** — Mention the agent in any channel to get a response without leaving the conversation.
 
 When connected to the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server), the agent can search messages and files, read channel history and threads, send and schedule messages, and create and update canvases. The template also includes one example tool (emoji reactions). Add your own tools to customize the agent for your use case.
 

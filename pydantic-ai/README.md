@@ -6,9 +6,9 @@ A minimal starter template for building AI-powered Slack agents with [Bolt for P
 
 The starter agent interacts with users through three entry points:
 
-* **App Home** -- Displays a welcome message and Slack MCP Server connection status.
-* **Direct Messages** -- Users message the agent directly. It responds in-thread, maintaining context across follow-ups.
-* **Channel @mentions** -- Mention the agent in any channel to get a response without leaving the conversation.
+* **App Home** — Displays a welcome message and Slack MCP Server connection status.
+* **Direct Messages** — Users message the agent directly. It responds in-thread, maintaining context across follow-ups.
+* **Channel @mentions** — Mention the agent in any channel to get a response without leaving the conversation.
 
 When connected to the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server), the agent can search messages and files, read channel history and threads, send and schedule messages, and create and update canvases. The template also includes one example tool (emoji reactions). Add your own tools to customize it for your use case.
 
@@ -95,7 +95,7 @@ pip install -r requirements.txt
 
 ## Providers
 
-This app supports both Anthropic and OpenAI as AI providers. Set at least one API key -- if both are set, Anthropic is used by default.
+This app supports both Anthropic and OpenAI as AI providers. Set at least one API key — if both are set, Anthropic is used by default.
 
 ### Anthropic Setup
 
@@ -206,9 +206,9 @@ slack run app_oauth.py
 3. Create your Slack app at [api.slack.com/apps/new](https://api.slack.com/apps/new) using [`manifest.json`](./manifest.json). Before pasting the manifest, set `socket_mode_enabled` to `false` and replace `ngrok-free.app` with your ngrok domain.
 
 4. Install the app to your workspace and copy the following values into your `.env`:
-   - **Signing Secret** -- from _Basic Information_
-   - **Bot User OAuth Token** -- from _OAuth & Permissions_
-   - **Client ID** and **Client Secret** -- from _Basic Information_
+   - **Signing Secret** — from _Basic Information_
+   - **Bot User OAuth Token** — from _OAuth & Permissions_
+   - **Client ID** and **Client Secret** — from _Basic Information_
 
 ```sh
 SLACK_SIGNING_SECRET=YOUR_SIGNING_SECRET
@@ -243,11 +243,11 @@ python3 app_oauth.py
 
 Once the agent is running, there are three ways to interact:
 
-**App Home** -- Open the agent in Slack and click the _Home_ tab. You'll see a welcome message and the Slack MCP Server connection status.
+**App Home** — Open the agent in Slack and click the _Home_ tab. You'll see a welcome message and the Slack MCP Server connection status.
 
-**Direct Messages** -- Open a DM with the agent and send a message. It will reply in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
+**Direct Messages** — Open a DM with the agent and send a message. It will reply in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
 
-**Channel @mentions** -- In any channel where the agent has been added, mention it followed by your message. The agent responds in a thread so the channel stays clean.
+**Channel @mentions** — In any channel where the agent has been added, mention it followed by your message. The agent responds in a thread so the channel stays clean.
 
 ### Linting
 
@@ -277,20 +277,20 @@ ruff format
 
 Every incoming request is routed to a "listener". This directory groups each listener based on the Slack Platform feature used.
 
-**`/listeners/events`** -- Handles incoming events:
+**`/listeners/events`** — Handles incoming events:
 
-- `app_home_opened.py` -- Publishes the App Home view with a welcome message and MCP status.
-- `app_mentioned.py` -- Responds to @mentions in channels.
-- `message.py` -- Responds to direct messages from users.
+- `app_home_opened.py` — Publishes the App Home view with a welcome message and MCP status.
+- `app_mentioned.py` — Responds to @mentions in channels.
+- `message.py` — Responds to direct messages from users.
 
-**`/listeners/actions`** -- Handles interactive components:
+**`/listeners/actions`** — Handles interactive components:
 
-- `feedback_buttons.py` -- Handles thumbs up/down feedback on agent responses.
+- `feedback_buttons.py` — Handles thumbs up/down feedback on agent responses.
 
-**`/listeners/views`** -- Builds Block Kit views:
+**`/listeners/views`** — Builds Block Kit views:
 
-- `app_home_builder.py` -- Constructs the App Home Block Kit view.
-- `feedback_builder.py` -- Creates the feedback button block attached to responses.
+- `app_home_builder.py` — Constructs the App Home Block Kit view.
+- `feedback_builder.py` — Creates the feedback button block attached to responses.
 
 ### `/agent`
 
