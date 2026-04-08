@@ -1,48 +1,52 @@
-# general things to ignore
+# Build
 build/
 dist/
 docs/_sources/
 docs/.doctrees
-.eggs/
-*.egg-info/
-*.egg
-*.py[cod]
-__pycache__/
-*.so
-*~
 
-# virtualenv
-env*/
-venv/
-.venv*
-.env*
-!.env.sample
+# Claude Code
+.claude/*.local.json
 
-# codecov / coverage
+# Coverage
 .coverage
 cov_*
 coverage.xml
 
-# due to using tox and pytest
-.tox
-.cache
-.pytest_cache/
-.python-version
-pip
-.mypy_cache/
+# Editors
+.idea/
 
-# misc
-tmp.txt
+# Environment
+.env*
+!.env.sample
+env*/
+venv/
+.venv*
+
+# Logs
 logs/
 
 # macOS
 .DS_Store
-*.db
-.pytype/
-.idea/
 
-# oauth data
+# OAuth
 data/
 
-# claude
-.claude/*.local.json
+# Python
+__pycache__/
+*.db
+*.egg
+*.egg-info/
+*.eggs/
+*.py[cod]
+*.so
+.mypy_cache/
+.pytype/
+.python-version
+*~
+pip
+
+# Testing
+.cache
+.pytest_cache/
+.tox
+tmp.txt

@@ -1,15 +1,15 @@
-# Claude
-.claude/*.local.json
-
-# bolt-python build scratch (used by /project:update-bolt command)
+# Build
 .bolt-python-build/
+
+# Claude Code
+.claude/*.local.json
 
 # Git
 .worktrees/
 
-# Slack App Templates
-*/.slack/apps.json
-*/.slack/apps.dev.json
-
 # macOS
 .DS_Store
+
+# Slack
+*/.slack/apps.json
+*/.slack/apps.dev.json
