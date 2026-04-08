@@ -1,6 +1,6 @@
 {
   "display_information": {
-    "name": "Starter Agent - Claude Agent SDK"
+    "name": "Starter Agent - Claude SDK"
   },
   "features": {
     "assistant_view": {
@@ -13,7 +13,7 @@
       "messages_tab_read_only_enabled": false
     },
     "bot_user": {
-      "display_name": "Starter Agent - Claude Agent SDK",
+      "display_name": "Starter Agent - Claude SDK",
       "always_online": false
     }
   },
