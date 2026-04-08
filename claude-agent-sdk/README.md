@@ -1,6 +1,6 @@
 # Starter Agent for Slack (Bolt for Python and Claude Agent SDK)
 
-A minimal starter template for building AI-powered Slack agents with [Bolt for Python](https://docs.slack.dev/tools/bolt-python/) and the [Claude Agent SDK](https://docs.anthropic.com/en/docs/agents/claude-agent-sdk) using models from [Anthropic](https://www.anthropic.com).
+A minimal starter template for building AI-powered Slack agents with [Bolt for Python](https://docs.slack.dev/tools/bolt-python/) and the [Claude Agent SDK](https://docs.anthropic.com/en/docs/agents/claude-agent-sdk) using models from [Anthropic](https://www.anthropic.com). Works with the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server) to search messages, read channels, send messages, and manage canvases — all from within your agent.
 
 ## App Overview
 
@@ -10,7 +10,7 @@ The starter agent interacts with users through three entry points:
 * **Direct Messages** -- Users message the agent directly. It responds in-thread, maintaining context across follow-ups.
 * **Channel @mentions** -- Mention the agent in any channel to get a response without leaving the conversation.
 
-The agent includes one example tool (emoji reactions) and optional Slack MCP Server integration. Add your own tools to customize it for your use case.
+When connected to the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server), the agent can search messages and files, read channel history and threads, send and schedule messages, and create and update canvases. The template also includes one example tool (emoji reactions). Add your own tools to customize it for your use case.
 
 ## Setup
 
