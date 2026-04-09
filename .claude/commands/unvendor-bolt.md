@@ -16,13 +16,20 @@ Switch from the vendored bolt-python wheel to the latest published `slack-bolt` 
 
 4. In all three `pyproject.toml` files (`claude-agent-sdk/pyproject.toml`, `openai-agents-sdk/pyproject.toml`, `pydantic-ai/pyproject.toml`), replace the comment `# slack-bolt is installed from a vendored whl — see ../vendor/` with an actual dependency `"slack-bolt>=<version>"` using the version from step 1.
 
-5. If `.github/dependabot.yml` has an `ignore` rule for `slack-bolt`, remove it so Dependabot can manage updates.
+5. For each implementation directory, if a `.venv` virtual environment exists, activate it and install the updated requirements:
+   ```
+   if [ -f <dir>/.venv/bin/activate ]; then
+     source <dir>/.venv/bin/activate && pip install -r <dir>/requirements.txt
+   fi
+   ```
 
-6. Update `README.md` — replace the "Local Development" section that describes vendored bolt with:
+6. If `.github/dependabot.yml` has an `ignore` rule for `slack-bolt`, remove it so Dependabot can manage updates.
+
+7. Update `README.md` — replace the "Local Development" section that describes vendored bolt with:
    ```
    ## Local Development
 
    This repo uses [`slack-bolt`](https://pypi.org/project/slack-bolt/) from PyPI.
    ```
 
-7. Report the version change to the user. Do NOT commit — let the user review first.
+8. Report the version change to the user. Do NOT commit — let the user review first.
