@@ -6,4 +6,4 @@ aiohttp>=3.13.3
 python-dotenv==1.2.2
 
 pytest
-ruff==0.15.9
+ruff==0.15.10
