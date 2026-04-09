@@ -11,9 +11,6 @@ updates:
     labels:
       - "pip"
       - "dependencies"
-    ignore:
-      - dependency-name: "slack-bolt"
-        # Vendored from bolt-python main — managed via /project:vendor-bolt
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

@@ -1,5 +1,5 @@
 slack-sdk==3.41.0
-../vendor/slack_bolt-1.27.0+8908885-py2.py3-none-any.whl
+slack-bolt>=1.28.0
 slack-cli-hooks<1.0.0
 claude-agent-sdk>=0.1.36
 aiohttp>=3.13.3

@@ -4,7 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "slack-sdk==3.41.0",
-    # slack-bolt is installed from a vendored whl — see ../vendor/
+    "slack-bolt>=1.28.0",
     "slack-cli-hooks<1.0.0",
     "claude-agent-sdk>=0.1.36",
     "aiohttp>=3.13.3",
