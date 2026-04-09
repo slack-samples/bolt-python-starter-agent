@@ -16,7 +16,7 @@ test = [
 ]
 dev = [
     "bolt-python-support-agent-openai-agentkit[test]",
-    "ruff==0.15.9",
+    "ruff==0.15.10",
 ]
 
 [tool.setuptools.packages.find]
