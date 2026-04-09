@@ -185,8 +185,8 @@ slack install -E local
 ```sh
 SLACK_CLIENT_ID=YOUR_CLIENT_ID
 SLACK_CLIENT_SECRET=YOUR_CLIENT_SECRET
-SLACK_REDIRECT_URI=https://YOUR_NGROK_SUBDOMAIN.ngrok-free.app/slack/oauth_redirect
 SLACK_SIGNING_SECRET=YOUR_SIGNING_SECRET
+SLACK_REDIRECT_URI=https://YOUR_NGROK_SUBDOMAIN.ngrok-free.app/slack/oauth_redirect
 ```
 
 7. Start the app:
@@ -211,10 +211,10 @@ slack run app_oauth.py
    - **Client ID** and **Client Secret** — from _Basic Information_
 
 ```sh
-SLACK_SIGNING_SECRET=YOUR_SIGNING_SECRET
 SLACK_BOT_TOKEN=xoxb-YOUR_BOT_TOKEN
 SLACK_CLIENT_ID=YOUR_CLIENT_ID
 SLACK_CLIENT_SECRET=YOUR_CLIENT_SECRET
+SLACK_SIGNING_SECRET=YOUR_SIGNING_SECRET
 SLACK_REDIRECT_URI=https://YOUR_NGROK_SUBDOMAIN.ngrok-free.app/slack/oauth_redirect
 ```
 
