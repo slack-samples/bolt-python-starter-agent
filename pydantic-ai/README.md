@@ -4,11 +4,12 @@ A minimal starter template for building AI-powered Slack agents with [Bolt for P
 
 ## App Overview
 
-The starter agent interacts with users through three entry points:
+The starter agent interacts with users through four entry points:
 
-* **App Home** — Displays a welcome message and Slack MCP Server connection status.
+* **App Home** — Displays a welcome message with instructions on how to interact.
 * **Direct Messages** — Users message the agent directly. It responds in-thread, maintaining context across follow-ups.
 * **Channel @mentions** — Mention the agent in any channel to get a response without leaving the conversation.
+* **Assistant Panel** — Users click _Add Agent_ in Slack, select the agent, and pick from suggested prompts or type a message.
 
 When connected to the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server), the agent can search messages and files, read channel history and threads, send and schedule messages, and create and update canvases. The template also includes one example tool (emoji reactions). Add your own tools to customize it for your use case.
 
@@ -241,13 +242,15 @@ python3 app_oauth.py
 
 ### Using the App
 
-Once the agent is running, there are three ways to interact:
+Once the agent is running, there are several ways to interact:
 
-**App Home** — Open the agent in Slack and click the _Home_ tab. You'll see a welcome message and the Slack MCP Server connection status.
+**App Home** — Open the agent in Slack and click the _Home_ tab. You'll see a welcome message with instructions on how to interact.
 
-**Direct Messages** — Open a DM with the agent and send a message. It will reply in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
+**Direct Messages** — Open a DM with the agent. You'll see suggested prompts like _Write a Message_, _Summarize_, and _Brainstorm_ — pick one or type your own message. The agent replies in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
 
-**Channel @mentions** — In any channel where the agent has been added, mention it followed by your message. The agent responds in a thread so the channel stays clean.
+**Channel @mentions** — Invite the agent to a channel by typing `/invite @agent-name` in the message box, then @mention it followed by your message. The agent responds in a thread so the channel stays clean.
+
+**Assistant Panel** — Click _Add Agent_ in the top-right corner of Slack, select the agent from the list, then pick a suggested prompt or type a message.
 
 ### Linting
 
