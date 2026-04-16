@@ -73,6 +73,27 @@ def build_app_home_view(
                 ],
             }
         )
+    else:
+        blocks.append(
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "\U0001f534 *Slack MCP Server is disconnected.* <https://github.com/slack-samples/bolt-python-starter-agent/blob/main/pydantic-ai/README.md#slack-mcp-server|Learn how to enable the Slack MCP Server.>",
+                },
+            }
+        )
+        blocks.append(
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "The Slack MCP Server enables the assistant to search messages, read channels, and more.",
+                    }
+                ],
+            }
+        )
 
     return {
         "type": "home",

@@ -11,7 +11,11 @@ The starter agent interacts with users through four entry points:
 * **Channel @mentions** — Mention the agent in any channel to get a response without leaving the conversation.
 * **Assistant Panel** — Users click _Add Agent_ in Slack, select the agent, and pick from suggested prompts or type a message.
 
-When connected to the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server), the agent can search messages and files, read channel history and threads, send and schedule messages, and create and update canvases. The template also includes one example tool (emoji reactions). Add your own tools to customize it for your use case.
+The template also includes one example tool (emoji reactions). Add your own tools to customize it for your use case.
+
+### Slack MCP Server
+
+When connected to the [Slack MCP Server](https://github.com/slackapi/slack-mcp-server), the agent can search messages and files, read channel history and threads, send and schedule messages, and create and update canvases. When deployed with OAuth (HTTP mode), the agent automatically connects to the Slack MCP Server using the user's token.
 
 ## Setup
 

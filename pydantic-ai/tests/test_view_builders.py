@@ -13,7 +13,7 @@ def test_build_feedback_blocks():
 
 
 def test_build_app_home_view_default():
-    """Default args (app.py mode) — no MCP status section."""
+    """Default args (Socket Mode) — shows disconnected status with learn-more link."""
     view = build_app_home_view()
 
     assert view["type"] == "home"
@@ -23,11 +23,13 @@ def test_build_app_home_view_default():
     assert "header" in block_types
     assert "section" in block_types
 
-    # No MCP status section
+    # Shows MCP status as disconnected with learn-more link
     section_texts = [
         b["text"]["text"] for b in view["blocks"] if b["type"] == "section"
     ]
-    assert not any("Slack MCP Server" in t for t in section_texts)
+    mcp_section = next(t for t in section_texts if "Slack MCP Server" in t)
+    assert "disconnected" in mcp_section
+    assert "Learn how to enable" in mcp_section
 
 
 def test_build_app_home_view_connect():
