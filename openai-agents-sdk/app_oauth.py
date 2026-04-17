@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from pathlib import Path
+from urllib.parse import urljoin
 
 from dotenv import load_dotenv
 from slack_bolt import App
@@ -117,4 +118,8 @@ register_listeners(app)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 3000))
+    redirect_uri = os.environ.get("SLACK_REDIRECT_URI", "")
+    if redirect_uri:
+        install_url = urljoin(redirect_uri, "/slack/install")
+        logger.info("Connect the Slack MCP Server: %s", install_url)
     app.start(port=port)
