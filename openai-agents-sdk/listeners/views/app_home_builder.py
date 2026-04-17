@@ -89,7 +89,7 @@ def build_app_home_view(
                 "elements": [
                     {
                         "type": "mrkdwn",
-                        "text": "The Slack MCP Server enables the assistant to search messages, read channels, and more.",
+                        "text": "The Slack MCP Server enables the agent to search messages, read channels, and more.",
                     }
                 ],
             }
