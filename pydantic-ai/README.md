@@ -177,7 +177,7 @@ ngrok http 3000
 slack install -E local
 ```
 
-5. Enable MCP for your app:
+5. _(Slack CLI < v4.1.0 only)_ Enable MCP for your app:
    - Run `slack app settings` to open your app's settings
    - Navigate to **Agents & AI Apps** in the left-side navigation
    - Toggle **Model Context Protocol** on
@@ -225,18 +225,13 @@ SLACK_REDIRECT_URI=https://YOUR_NGROK_SUBDOMAIN.ngrok-free.app/slack/oauth_redir
 
 Replace `your-subdomain` in `SLACK_REDIRECT_URI` with your ngrok subdomain.
 
-5. Enable MCP for your app:
-   - Open your app at [api.slack.com/apps](https://api.slack.com/apps)
-   - Navigate to **Agents & AI Apps** in the left-side navigation
-   - Toggle **Model Context Protocol** on
-
-6. Start the app:
+5. Start the app:
 
 ```sh
 python3 app_oauth.py
 ```
 
-7. Click the install URL printed in the terminal to install the app to your workspace via OAuth.
+6. Click the install URL printed in the terminal to install the app to your workspace via OAuth.
 
 </details>
 
