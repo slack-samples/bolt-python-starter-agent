@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -U pip
-          pip install -r requirements.txt
+          pip install -e ".[dev]"
           pip install ".[test]"
       - name: Run all tests
         run: |
