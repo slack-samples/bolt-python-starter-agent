@@ -14,7 +14,7 @@
     },
     "bot_user": {
       "display_name": "Starter Agent - Claude SDK (Python)",
-      "always_online": false
+      "always_online": true
     }
   },
   "oauth_config": {

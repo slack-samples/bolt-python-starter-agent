@@ -14,7 +14,7 @@
     },
     "bot_user": {
       "display_name": "Starter Agent - Pydantic AI (Python)",
-      "always_online": false
+      "always_online": true
     }
   },
   "oauth_config": {
