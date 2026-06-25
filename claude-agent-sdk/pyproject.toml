@@ -4,21 +4,21 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "slack-sdk==3.42.0",
-    "slack-bolt>=1.28.0",
-    "slack-cli-hooks<1.0.0",
-    "claude-agent-sdk>=0.2.87",
-    "aiohttp>=3.14.1",
+    "slack-bolt==1.28.0",
+    "slack-cli-hooks==0.3.0",
+    "claude-agent-sdk==0.2.110",
+    "aiohttp==3.14.1",
     "python-dotenv==1.2.2",
 ]
 
 [project.optional-dependencies]
 test = [
-    "pytest",
-    "pytest-asyncio",
+    "pytest==9.1.1",
+    "pytest-asyncio==1.4.0",
 ]
 dev = [
     "bolt-python-support-agent-claude[test]",
-    "ruff==0.15.17",
+    "ruff==0.15.19",
 ]
 
 [tool.setuptools.packages.find]
