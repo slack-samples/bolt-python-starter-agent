@@ -4,19 +4,19 @@ version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
     "slack-sdk==3.42.0",
-    "slack-bolt>=1.28.0",
-    "slack-cli-hooks<1.0.0",
-    "pydantic-ai[openai]",
+    "slack-bolt==1.28.0",
+    "slack-cli-hooks==0.3.0",
+    "pydantic-ai[openai]==1.107.0",
     "python-dotenv==1.2.2",
 ]
 
 [project.optional-dependencies]
 test = [
-    "pytest",
+    "pytest==9.1.1",
 ]
 dev = [
     "bolt-python-support-agent-pydantic[test]",
-    "ruff==0.15.17",
+    "ruff==0.15.20",
 ]
 
 [tool.setuptools.packages.find]
