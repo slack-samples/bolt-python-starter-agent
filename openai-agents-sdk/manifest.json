@@ -3,8 +3,8 @@
     "name": "Starter Agent - OpenAI SDK"
   },
   "features": {
-    "assistant_view": {
-      "assistant_description": "Hi, I am an agent built using Bolt for Python. I am here to help you out!",
+    "agent_view": {
+      "agent_description": "Hi, I am an agent built using Bolt for Python. I am here to help you out!",
       "suggested_prompts": []
     },
     "app_home": {
@@ -63,7 +63,6 @@
       "bot_events": [
         "app_home_opened",
         "app_mention",
-        "assistant_thread_started",
         "message.channels",
         "message.groups",
         "message.im"
