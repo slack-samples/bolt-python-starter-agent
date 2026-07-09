@@ -1,5 +1,5 @@
 slack-sdk==3.43.0
-slack-bolt==1.29.0
+../vendor/slack_bolt-1.29.0+pr1549.812f7c3-py2.py3-none-any.whl
 slack-cli-hooks==0.3.0
 openai-agents==0.18.0
 python-dotenv==1.2.2

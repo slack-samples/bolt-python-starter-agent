@@ -26,10 +26,9 @@ def handle_app_home_opened(
     """
     try:
         if event.get("tab") == "messages":
-            client.assistant_threads_setSuggestedPrompts(
-                channel_id=event["channel"],
-                title="How can I help you today?",
+            context.set_suggested_prompts(
                 prompts=SUGGESTED_PROMPTS,
+                title="How can I help you today?",
             )
             # TODO(agent-dm-messages-tab): handle app_context_changed once Bolt supports it
             return
