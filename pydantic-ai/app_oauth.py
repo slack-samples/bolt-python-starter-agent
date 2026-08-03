@@ -119,7 +119,7 @@ app = App(
 register_listeners(app)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 3000))
+    port = int(os.environ.get("PORT", "3000"))
     redirect_uri = os.environ.get("SLACK_REDIRECT_URI", "")
     if redirect_uri:
         install_url = urljoin(redirect_uri, "/slack/install")

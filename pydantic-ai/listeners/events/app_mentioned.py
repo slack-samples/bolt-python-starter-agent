@@ -5,8 +5,8 @@ from slack_bolt import BoltContext, Say, SayStream, SetStatus
 from slack_sdk import WebClient
 
 from agent import AgentDeps, run_agent
-from thread_context import conversation_store
 from listeners.views.feedback_builder import build_feedback_blocks
+from thread_context import conversation_store
 
 
 def handle_app_mentioned(
@@ -71,7 +71,7 @@ def handle_app_mentioned(
         conversation_store.set_history(channel_id, thread_ts, result.all_messages())
 
     except Exception as e:
-        logger.exception(f"Failed to handle app mention: {e}")
+        logger.exception("Failed to handle app mention")
         say(
             text=f":warning: Something went wrong! ({e})",
             thread_ts=event.get("thread_ts") or event["ts"],

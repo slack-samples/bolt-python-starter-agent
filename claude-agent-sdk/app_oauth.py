@@ -5,12 +5,12 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 from dotenv import load_dotenv
-from slack_bolt.authorization.authorize_result import AuthorizeResult
 from slack_bolt.async_app import AsyncApp
+from slack_bolt.authorization.authorize_result import AuthorizeResult
 from slack_bolt.oauth.async_oauth_settings import AsyncOAuthSettings
-from slack_sdk.web.async_client import AsyncWebClient
 from slack_sdk.oauth.installation_store import FileInstallationStore
 from slack_sdk.oauth.state_store import FileOAuthStateStore
+from slack_sdk.web.async_client import AsyncWebClient
 
 from listeners import register_listeners
 
@@ -117,7 +117,7 @@ app = AsyncApp(
 register_listeners(app)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 3000))
+    port = int(os.environ.get("PORT", "3000"))
     redirect_uri = os.environ.get("SLACK_REDIRECT_URI", "")
     if redirect_uri:
         install_url = urljoin(redirect_uri, "/slack/install")

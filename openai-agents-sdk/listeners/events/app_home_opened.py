@@ -47,5 +47,5 @@ def handle_app_home_opened(
 
         view = build_app_home_view(install_url=install_url, is_connected=is_connected)
         client.views_publish(user_id=user_id, view=view)
-    except Exception as e:
-        logger.exception(f"Failed to handle app_home_opened: {e}")
+    except Exception:
+        logger.exception("Failed to handle app_home_opened")
