@@ -7,8 +7,8 @@ from slack_bolt.context.set_status.async_set_status import AsyncSetStatus
 from slack_sdk.web.async_client import AsyncWebClient
 
 from agent import AgentDeps, run_agent
-from thread_context import session_store
 from listeners.views.feedback_builder import build_feedback_blocks
+from thread_context import session_store
 
 
 async def handle_message(
@@ -86,7 +86,7 @@ async def handle_message(
             session_store.set_session(channel_id, thread_ts, new_session_id)
 
     except Exception as e:
-        logger.exception(f"Failed to handle message: {e}")
+        logger.exception("Failed to handle message")
         await say(
             text=f":warning: Something went wrong! ({e})",
             thread_ts=event.get("thread_ts") or event.get("ts"),

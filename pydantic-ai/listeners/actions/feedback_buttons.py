@@ -34,5 +34,5 @@ def handle_feedback_button(
         logger.debug(
             f"Feedback received: value={feedback_value}, message_ts={message_ts}"
         )
-    except Exception as e:
-        logger.exception(f"Failed to handle feedback: {e}")
+    except Exception:
+        logger.exception("Failed to handle feedback")
