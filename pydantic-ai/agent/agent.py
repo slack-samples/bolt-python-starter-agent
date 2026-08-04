@@ -2,7 +2,7 @@ import logging
 import os
 
 from pydantic_ai import Agent
-from pydantic_ai.mcp import MCPServerStreamableHTTP
+from pydantic_ai.mcp import MCPToolset
 
 from agent.deps import AgentDeps
 from agent.tools import add_emoji_reaction
@@ -90,7 +90,7 @@ def run_agent(text, deps, message_history=None):
     if deps.user_token:
         logger.info("Slack MCP Server enabled (user_token present)")
         toolsets.append(
-            MCPServerStreamableHTTP(
+            MCPToolset(
                 SLACK_MCP_URL,
                 headers={"Authorization": f"Bearer {deps.user_token}"},
             )
