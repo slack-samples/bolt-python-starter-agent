@@ -5,4 +5,4 @@ openai-agents==0.19.2
 python-dotenv==1.2.2
 
 pytest==9.1.1
-ruff==0.16.1
+ruff==0.16.2
