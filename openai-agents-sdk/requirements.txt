@@ -2,7 +2,7 @@ slack-sdk==3.43.0
 slack-bolt==1.30.0
 slack-cli-hooks==0.3.0
 openai-agents==0.19.4
-python-dotenv==1.2.2
+python-dotenv==1.2.3
 
 pytest==9.1.1
 ruff==0.16.2
