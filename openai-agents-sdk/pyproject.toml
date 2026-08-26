@@ -6,7 +6,7 @@ dependencies = [
     "slack-sdk==3.43.0",
     "slack-bolt==1.30.0",
     "slack-cli-hooks==0.3.0",
-    "openai-agents==0.21.0",
+    "openai-agents==0.22.0",
     "python-dotenv==1.2.3",
 ]
 
