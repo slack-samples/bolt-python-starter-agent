@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        directory:
+          - openai-agents-sdk
+          - pydantic-ai
+          - claude-agent-sdk
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.15"
+      - name: Install dependencies
+        run: |
+          pip install -U pip
+          pip install -r requirements.txt
+      - name: Lint and check formatting
+        run: |
+          ruff check .
+          ruff format --check .
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        directory:
+          - openai-agents-sdk
+          - pydantic-ai
+          - claude-agent-sdk
+    defaults:
+      run:
+        working-directory: ${{ matrix.directory }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.15"
+      - name: Install dependencies
+        run: |
+          pip install -U pip
+          pip install -r requirements.txt
+          pip install ".[test]"
+      - name: Run all tests
+        run: |
+          pytest
