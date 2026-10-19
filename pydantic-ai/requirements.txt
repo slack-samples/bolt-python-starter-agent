@@ -1,8 +1,0 @@
-slack-sdk==3.45.0
-slack-bolt==1.30.0
-slack-cli-hooks==0.3.0
-pydantic-ai[openai,anthropic]==2.55.0
-python-dotenv==1.2.4
-
-pytest==9.1.1
-ruff==0.17.0
