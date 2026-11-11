@@ -18,7 +18,7 @@ test = [
 ]
 dev = [
     "bolt-python-support-agent-claude[test]",
-    "ruff==0.17.3",
+    "ruff==0.17.4",
 ]
 
 [tool.setuptools.packages.find]
