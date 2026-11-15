@@ -30,6 +30,8 @@ def handle_message(
     if is_dm:
         pass
     elif is_thread_reply:
+        if f"<@{context.bot_user_id}>" in event.get("text", ""):
+            return
         # Channel thread replies are handled only if the bot is already engaged
         history = conversation_store.get_history(context.channel_id, event["thread_ts"])
         if history is None:
