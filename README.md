@@ -74,7 +74,7 @@ Once the agent is running, there are several ways to interact:
 
 * **App Home** — Open the agent in Slack and click the _Home_ tab to see a welcome message.
 * **Direct Messages** — Open a DM with the agent. Pick a suggested prompt or type your own message, and the agent will reply in a thread.
-* **Channel @mentions** — Invite the agent to a channel by typing `/invite @agent-name`, then @mention it with your message. It responds in a thread so the channel stays clean.
+* **Channel @mentions** — Invite the agent to a channel by typing `/invite @agent-name`, then @mention it with your message. It responds in a thread so the channel stays clean. It replies to follow-ups from the person who mentioned it and anyone else can @mention it to start their own conversation.
 * **Assistant Panel** — Click _Add Agent_ in the top-right corner of Slack, select the agent, and choose a suggested prompt like _Write a Message_, _Summarize_, or _Brainstorm_.
 
 For full setup instructions, pick a framework above and follow the README in that directory.

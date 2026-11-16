@@ -13,7 +13,7 @@ test_logger = logging.getLogger(__name__)
 
 class TestMessage:
     def setup_method(self):
-        session_store.set_session("C123", "1.0", "session-1")
+        session_store.set_session("C123", "1.0", "U123", "session-1")
         self.fake_context = Mock(AsyncBoltContext)
         self.fake_context.bot_user_id = "UBOT"
         self.fake_context.channel_id = "C123"
@@ -49,5 +49,13 @@ class TestMessage:
     @pytest.mark.asyncio
     async def test_skips_thread_reply_that_mentions_the_agent(self):
         fake_run_agent = await self.handle("<@UBOT> and then?")
+
+        fake_run_agent.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_skips_thread_reply_from_someone_without_their_own_session(self):
+        self.fake_context.user_id = "U456"
+
+        fake_run_agent = await self.handle("what did you find?")
 
         fake_run_agent.assert_not_called()

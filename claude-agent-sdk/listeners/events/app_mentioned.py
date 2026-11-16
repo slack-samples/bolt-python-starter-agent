@@ -50,7 +50,9 @@ async def handle_app_mentioned(
         )
 
         # Get session ID for conversation context
-        existing_session_id = session_store.get_session(channel_id, thread_ts)
+        existing_session_id = session_store.get_session(
+            channel_id, thread_ts, context.user_id
+        )
 
         # Run the agent with deps for tool access
         deps = AgentDeps(
@@ -73,7 +75,9 @@ async def handle_app_mentioned(
 
         # Store session ID for future context
         if new_session_id:
-            session_store.set_session(channel_id, thread_ts, new_session_id)
+            session_store.set_session(
+                channel_id, thread_ts, context.user_id, new_session_id
+            )
 
     except Exception as e:
         logger.exception("Failed to handle app mention")

@@ -12,7 +12,7 @@ test_logger = logging.getLogger(__name__)
 
 class TestMessage:
     def setup_method(self):
-        conversation_store.set_history("C123", "1.0", [])
+        conversation_store.set_history("C123", "1.0", "U123", [])
         self.fake_context = Mock(BoltContext)
         self.fake_context.bot_user_id = "UBOT"
         self.fake_context.channel_id = "C123"
@@ -46,5 +46,12 @@ class TestMessage:
 
     def test_skips_thread_reply_that_mentions_the_agent(self):
         fake_run_agent = self.handle("<@UBOT> and then?")
+
+        fake_run_agent.assert_not_called()
+
+    def test_skips_thread_reply_from_someone_without_their_own_session(self):
+        self.fake_context.user_id = "U456"
+
+        fake_run_agent = self.handle("what did you find?")
 
         fake_run_agent.assert_not_called()

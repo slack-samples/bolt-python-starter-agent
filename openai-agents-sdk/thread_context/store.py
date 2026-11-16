@@ -5,22 +5,22 @@ import time
 class ConversationStore:
     """Thread-safe in-memory conversation history store.
 
-    Stores message histories keyed by (channel_id, thread_ts).
+    Stores message histories keyed by (channel_id, thread_ts, user_id).
     Includes TTL-based cleanup and a maximum conversation limit.
     """
 
     def __init__(self, ttl_seconds: int = 86400, max_conversations: int = 1000):
-        self._store: dict[tuple[str, str], dict] = {}
+        self._store: dict[tuple[str, str, str], dict] = {}
         self._lock = threading.Lock()
         self._ttl_seconds = ttl_seconds
         self._max_conversations = max_conversations
 
-    def get_history(self, channel_id: str, thread_ts: str) -> list | None:
-        """Retrieve conversation history for a thread.
+    def get_history(self, channel_id: str, thread_ts: str, user_id: str) -> list | None:
+        """Retrieve conversation history for a user in a thread.
 
         Returns None if no history exists or if the history has expired.
         """
-        key = (channel_id, thread_ts)
+        key = (channel_id, thread_ts, user_id)
         with self._lock:
             entry = self._store.get(key)
             if entry is None:
@@ -30,9 +30,11 @@ class ConversationStore:
                 return None
             return entry["messages"]
 
-    def set_history(self, channel_id: str, thread_ts: str, messages: list) -> None:
-        """Store conversation history for a thread."""
-        key = (channel_id, thread_ts)
+    def set_history(
+        self, channel_id: str, thread_ts: str, user_id: str, messages: list
+    ) -> None:
+        """Store conversation history for a user in a thread."""
+        key = (channel_id, thread_ts, user_id)
         with self._lock:
             self._store[key] = {
                 "messages": messages,
