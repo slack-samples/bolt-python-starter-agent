@@ -14,17 +14,19 @@ test_logger = logging.getLogger(__name__)
 class TestMessage:
     def setup_method(self):
         session_store.set_session("C123", "1.0", "U123", "session-1")
+        self.fake_client = Mock(AsyncWebClient)
+        self.fake_client.reactions_add = AsyncMock()
         self.fake_context = Mock(AsyncBoltContext)
         self.fake_context.bot_user_id = "UBOT"
         self.fake_context.channel_id = "C123"
         self.fake_context.user_id = "U123"
 
-    async def handle(self, text: str) -> AsyncMock:
+    async def handle(self, text: str, **event: str | None) -> AsyncMock:
         with patch(
             "listeners.events.message.run_agent", AsyncMock(side_effect=RuntimeError)
         ) as fake_run_agent:
             await handle_message(
-                client=Mock(AsyncWebClient),
+                client=self.fake_client,
                 context=self.fake_context,
                 event={
                     "channel_type": "channel",
@@ -32,6 +34,7 @@ class TestMessage:
                     "thread_ts": "1.0",
                     "ts": "2.0",
                     "user": "U123",
+                    **event,
                 },
                 logger=test_logger,
                 say=AsyncMock(),
@@ -53,9 +56,19 @@ class TestMessage:
         fake_run_agent.assert_not_called()
 
     @pytest.mark.asyncio
+    async def test_runs_agent_for_dm_that_mentions_the_agent(self):
+        self.fake_context.channel_id = "D123"
+
+        fake_run_agent = await self.handle(
+            "<@UBOT> help", channel_type="im", thread_ts=None, ts="3.0"
+        )
+
+        fake_run_agent.assert_called_once()
+
+    @pytest.mark.asyncio
     async def test_skips_thread_reply_from_someone_without_their_own_session(self):
         self.fake_context.user_id = "U456"
 
-        fake_run_agent = await self.handle("what did you find?")
+        fake_run_agent = await self.handle("what did you find?", user="U456")
 
         fake_run_agent.assert_not_called()
