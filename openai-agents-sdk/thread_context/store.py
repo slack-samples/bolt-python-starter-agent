@@ -5,7 +5,6 @@ import time
 class ConversationStore:
     """Thread-safe in-memory conversation history store.
 
-    Stores message histories keyed by (channel_id, thread_ts, user_id).
     Includes TTL-based cleanup and a maximum conversation limit.
     """
 
@@ -16,7 +15,7 @@ class ConversationStore:
         self._max_conversations = max_conversations
 
     def get_history(self, channel_id: str, thread_ts: str, user_id: str) -> list | None:
-        """Retrieve conversation history for a user in a thread.
+        """Retrieve conversation history for a thread.
 
         Returns None if no history exists or if the history has expired.
         """
@@ -33,7 +32,7 @@ class ConversationStore:
     def set_history(
         self, channel_id: str, thread_ts: str, user_id: str, messages: list
     ) -> None:
-        """Store conversation history for a user in a thread."""
+        """Store conversation history for a thread."""
         key = (channel_id, thread_ts, user_id)
         with self._lock:
             self._store[key] = {

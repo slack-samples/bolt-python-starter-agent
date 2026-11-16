@@ -7,7 +7,6 @@ from pydantic_ai.messages import ModelMessage
 class ConversationStore:
     """Thread-safe in-memory conversation history store.
 
-    Stores Pydantic AI message histories keyed by (channel_id, thread_ts, user_id).
     Includes TTL-based cleanup and a maximum conversation limit.
     """
 
@@ -20,7 +19,7 @@ class ConversationStore:
     def get_history(
         self, channel_id: str, thread_ts: str, user_id: str
     ) -> list[ModelMessage] | None:
-        """Retrieve conversation history for a user in a thread.
+        """Retrieve conversation history for a thread.
 
         Returns None if no history exists or if the history has expired.
         """
@@ -41,7 +40,7 @@ class ConversationStore:
         user_id: str,
         messages: list[ModelMessage],
     ) -> None:
-        """Store conversation history for a user in a thread."""
+        """Store conversation history for a thread."""
         key = (channel_id, thread_ts, user_id)
         with self._lock:
             self._store[key] = {

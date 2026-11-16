@@ -35,11 +35,10 @@ async def handle_message(
     elif is_thread_reply:
         if f"<@{context.bot_user_id}>" in event.get("text", ""):
             return
-        # Channel thread replies are handled only if the bot is already engaged
-        session = session_store.get_session(
+        own_session = session_store.get_session(
             context.channel_id, event["thread_ts"], context.user_id
         )
-        if session is None:
+        if own_session is None:
             return
     else:
         # Top-level channel messages are handled by app_mentioned

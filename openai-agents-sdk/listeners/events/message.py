@@ -32,11 +32,10 @@ def handle_message(
     elif is_thread_reply:
         if f"<@{context.bot_user_id}>" in event.get("text", ""):
             return
-        # Channel thread replies are handled only if the bot is already engaged
-        history = conversation_store.get_history(
+        own_history = conversation_store.get_history(
             context.channel_id, event["thread_ts"], context.user_id
         )
-        if history is None:
+        if own_history is None:
             return
     else:
         # Top-level channel messages are handled by app_mentioned
