@@ -99,6 +99,9 @@ async def run_agent(
         mcp_servers=mcp_servers,
         allowed_tools=allowed_tools,
         permission_mode="bypassPermissions",
+        tools=[],
+        setting_sources=[],
+        strict_mcp_config=True,
     )
 
     if session_id:
