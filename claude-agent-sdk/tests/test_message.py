@@ -13,7 +13,7 @@ test_logger = logging.getLogger(__name__)
 
 class TestMessage:
     def setup_method(self):
-        session_store.set_session("C123", "1.0", "session-1")
+        session_store.set_session("C123", "1.0", "U123", "session-1")
         self.fake_client = Mock(AsyncWebClient)
         self.fake_client.reactions_add = AsyncMock()
         self.fake_context = Mock(AsyncBoltContext)
@@ -64,3 +64,40 @@ class TestMessage:
         )
 
         fake_run_agent.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_skips_thread_reply_from_someone_without_their_own_session(self):
+        self.fake_context.user_id = "U456"
+
+        fake_run_agent = await self.handle("what did you find?", user="U456")
+
+        fake_run_agent.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_stores_the_new_session_under_the_person_who_replied(self):
+        session_store.set_session("C123", "1.0", "U123", "session-1")
+
+        with patch(
+            "listeners.events.message.run_agent",
+            AsyncMock(return_value=("Hi", "session-2")),
+        ):
+            await handle_message(
+                client=self.fake_client,
+                context=self.fake_context,
+                event={
+                    "channel_type": "channel",
+                    "text": "and then?",
+                    "thread_ts": "1.0",
+                    "ts": "2.0",
+                    "user": "U123",
+                },
+                logger=test_logger,
+                say=AsyncMock(),
+                say_stream=AsyncMock(
+                    return_value=Mock(append=AsyncMock(), stop=AsyncMock())
+                ),
+                set_status=AsyncMock(),
+            )
+
+        assert session_store.get_session("C123", "1.0", "U123") == "session-2"
+        assert session_store.get_session("C123", "1.0", "U456") is None

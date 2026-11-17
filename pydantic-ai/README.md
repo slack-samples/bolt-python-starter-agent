@@ -290,7 +290,7 @@ Once the agent is running, there are several ways to interact:
 
 **Direct Messages** — Open a DM with the agent. You'll see suggested prompts like _Write a Message_, _Summarize_, and _Brainstorm_ — pick one or type your own message. The agent replies in a thread. Send follow-up messages in the same thread and the agent will maintain the full conversation context.
 
-**Channel @mentions** — Invite the agent to a channel by typing `/invite @agent-name` in the message box, then @mention it followed by your message. The agent responds in a thread so the channel stays clean.
+**Channel @mentions** — Invite the agent to a channel by typing `/invite @agent-name` in the message box, then @mention it followed by your message. The agent responds in a thread so the channel stays clean. In that thread, the agent replies to follow-up messages from the person who mentioned it. Anyone else in the thread can @mention the agent to start their own conversation and the agent keeps each person's conversation separate.
 
 **Assistant Panel** — Click _Add Agent_ in the top-right corner of Slack, select the agent from the list, then pick a suggested prompt or type a message.
 
@@ -347,7 +347,7 @@ The `tools` directory contains one example tool (emoji reaction) that the agent 
 
 ### `/thread_context`
 
-The `store.py` file implements a thread-safe in-memory conversation history store, keyed by channel and thread. This enables multi-turn conversations where the agent remembers previous context within a thread.
+The `store.py` file implements a thread-safe in-memory conversation history store, keyed by channel, thread, and user, so each person in a thread has their own conversation. This enables multi-turn conversations where the agent remembers previous context within a thread.
 
 ## Troubleshooting
 

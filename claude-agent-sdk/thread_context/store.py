@@ -5,24 +5,23 @@ import time
 class SessionStore:
     """Thread-safe in-memory session ID store.
 
-    Stores Claude Agent SDK session IDs keyed by (channel_id, thread_ts).
     The SDK manages conversation history server-side via sessions, so we
     only need to track session IDs for resuming conversations.
     Includes TTL-based cleanup and a maximum entry limit.
     """
 
     def __init__(self, ttl_seconds: int = 86400, max_entries: int = 1000):
-        self._store: dict[tuple[str, str], dict] = {}
+        self._store: dict[tuple[str, str, str], dict] = {}
         self._lock = threading.Lock()
         self._ttl_seconds = ttl_seconds
         self._max_entries = max_entries
 
-    def get_session(self, channel_id: str, thread_ts: str) -> str | None:
+    def get_session(self, channel_id: str, thread_ts: str, user_id: str) -> str | None:
         """Retrieve session ID for a thread.
 
         Returns None if no session exists or if the session has expired.
         """
-        key = (channel_id, thread_ts)
+        key = (channel_id, thread_ts, user_id)
         with self._lock:
             entry = self._store.get(key)
             if entry is None:
@@ -32,9 +31,11 @@ class SessionStore:
                 return None
             return entry["session_id"]
 
-    def set_session(self, channel_id: str, thread_ts: str, session_id: str) -> None:
+    def set_session(
+        self, channel_id: str, thread_ts: str, user_id: str, session_id: str
+    ) -> None:
         """Store session ID for a thread."""
-        key = (channel_id, thread_ts)
+        key = (channel_id, thread_ts, user_id)
         with self._lock:
             self._store[key] = {
                 "session_id": session_id,

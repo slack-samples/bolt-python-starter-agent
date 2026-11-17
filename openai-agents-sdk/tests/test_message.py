@@ -12,7 +12,7 @@ test_logger = logging.getLogger(__name__)
 
 class TestMessage:
     def setup_method(self):
-        conversation_store.set_history("C123", "1.0", [])
+        conversation_store.set_history("C123", "1.0", "U123", [])
         self.fake_client = Mock(WebClient)
         self.fake_client.reactions_add = Mock()
         self.fake_context = Mock(BoltContext)
@@ -60,3 +60,40 @@ class TestMessage:
         )
 
         fake_run_agent.assert_called_once()
+
+    def test_skips_thread_reply_from_someone_without_their_own_session(self):
+        self.fake_context.user_id = "U456"
+
+        fake_run_agent = self.handle("what did you find?", user="U456")
+
+        fake_run_agent.assert_not_called()
+
+    def test_stores_the_new_session_under_the_person_who_replied(self):
+        conversation_store.set_history("C123", "1.0", "U123", ["first"])
+
+        with patch(
+            "listeners.events.message.run_agent",
+            Mock(
+                return_value=Mock(
+                    final_output="Hi", to_input_list=Mock(return_value=["second"])
+                )
+            ),
+        ):
+            handle_message(
+                client=self.fake_client,
+                context=self.fake_context,
+                event={
+                    "channel_type": "channel",
+                    "text": "and then?",
+                    "thread_ts": "1.0",
+                    "ts": "2.0",
+                    "user": "U123",
+                },
+                logger=test_logger,
+                say=Mock(),
+                say_stream=Mock(),
+                set_status=Mock(),
+            )
+
+        assert conversation_store.get_history("C123", "1.0", "U123") == ["second"]
+        assert conversation_store.get_history("C123", "1.0", "U456") is None

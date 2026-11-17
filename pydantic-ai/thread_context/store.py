@@ -7,22 +7,23 @@ from pydantic_ai.messages import ModelMessage
 class ConversationStore:
     """Thread-safe in-memory conversation history store.
 
-    Stores Pydantic AI message histories keyed by (channel_id, thread_ts).
     Includes TTL-based cleanup and a maximum conversation limit.
     """
 
     def __init__(self, ttl_seconds: int = 86400, max_conversations: int = 1000):
-        self._store: dict[tuple[str, str], dict] = {}
+        self._store: dict[tuple[str, str, str], dict] = {}
         self._lock = threading.Lock()
         self._ttl_seconds = ttl_seconds
         self._max_conversations = max_conversations
 
-    def get_history(self, channel_id: str, thread_ts: str) -> list[ModelMessage] | None:
+    def get_history(
+        self, channel_id: str, thread_ts: str, user_id: str
+    ) -> list[ModelMessage] | None:
         """Retrieve conversation history for a thread.
 
         Returns None if no history exists or if the history has expired.
         """
-        key = (channel_id, thread_ts)
+        key = (channel_id, thread_ts, user_id)
         with self._lock:
             entry = self._store.get(key)
             if entry is None:
@@ -33,10 +34,14 @@ class ConversationStore:
             return entry["messages"]
 
     def set_history(
-        self, channel_id: str, thread_ts: str, messages: list[ModelMessage]
+        self,
+        channel_id: str,
+        thread_ts: str,
+        user_id: str,
+        messages: list[ModelMessage],
     ) -> None:
         """Store conversation history for a thread."""
-        key = (channel_id, thread_ts)
+        key = (channel_id, thread_ts, user_id)
         with self._lock:
             self._store[key] = {
                 "messages": messages,
