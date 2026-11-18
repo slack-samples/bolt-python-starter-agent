@@ -16,6 +16,7 @@ jobs:
           - openai-agents-sdk
           - pydantic-ai
           - claude-agent-sdk
+          - vercel
     defaults:
       run:
         working-directory: ${{ matrix.directory }}
@@ -42,6 +43,7 @@ jobs:
           - openai-agents-sdk
           - pydantic-ai
           - claude-agent-sdk
+          - vercel
     defaults:
       run:
         working-directory: ${{ matrix.directory }}

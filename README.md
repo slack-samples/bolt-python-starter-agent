@@ -4,13 +4,14 @@ A minimal starter template for building AI-powered Slack agents with [Bolt for P
 
 ## Choose Your Framework
 
-This repo contains the same app built with three different AI agent frameworks. Pick the one that fits your stack:
+This repo contains the same app built with four different AI agent frameworks. Pick the one that fits your stack:
 
 | App | Directory | Get Started | Framework |
 |-----|-----------|-------------|-----------|
 | **Claude Agent SDK** | `claude-agent-sdk/` | [View README](./claude-agent-sdk/README.md) | [claude-agent-sdk](https://platform.claude.com/docs/en/agent-sdk/overview) |
 | **OpenAI Agents SDK** | `openai-agents-sdk/` | [View README](./openai-agents-sdk/README.md) | [openai-agents](https://openai.github.io/openai-agents-python/) |
 | **Pydantic AI** | `pydantic-ai/` | [View README](./pydantic-ai/README.md) | [pydantic-ai](https://ai.pydantic.dev/) |
+| **Vercel AI SDK** | `vercel/` | [View README](./vercel/README.md) | [ai](https://ai-python.dev/) |
 
 All implementations share the same Slack listener layer and the same user experience. The only difference is how the agent is defined and executed under the hood.
 
