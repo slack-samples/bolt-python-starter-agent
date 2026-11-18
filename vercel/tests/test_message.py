@@ -1,19 +1,27 @@
 import logging
 from unittest.mock import AsyncMock, Mock, patch
 
+import ai
 import pytest
+import pytest_asyncio
 from slack_bolt.context.async_context import AsyncBoltContext
 from slack_sdk.web.async_client import AsyncWebClient
 
 from listeners.events.message import handle_message
-from thread_context import session_store
+from thread_context import conversation_store
 
 test_logger = logging.getLogger(__name__)
 
+EARLIER_HISTORY = [ai.user_message("hello"), ai.assistant_message("Hi")]
+UPDATED_HISTORY = [*EARLIER_HISTORY, ai.user_message("and then?")]
+
 
 class TestMessage:
+    @pytest_asyncio.fixture(autouse=True)
+    async def setup_history(self):
+        await conversation_store.set_history("C123", "1.0", "U123", EARLIER_HISTORY)
+
     def setup_method(self):
-        session_store.set_session("C123", "1.0", "U123", "session-1")
         self.fake_client = Mock(AsyncWebClient)
         self.fake_client.reactions_add = AsyncMock()
         self.fake_context = Mock(AsyncBoltContext)
@@ -75,11 +83,11 @@ class TestMessage:
 
     @pytest.mark.asyncio
     async def test_stores_the_new_session_under_the_person_who_replied(self):
-        session_store.set_session("C123", "1.0", "U123", "session-1")
+        await conversation_store.set_history("C123", "1.0", "U123", EARLIER_HISTORY)
 
         with patch(
             "listeners.events.message.run_agent",
-            AsyncMock(return_value=("Hi", "session-2")),
+            AsyncMock(return_value=("Hi", UPDATED_HISTORY)),
         ):
             await handle_message(
                 client=self.fake_client,
@@ -99,5 +107,8 @@ class TestMessage:
                 set_status=AsyncMock(),
             )
 
-        assert session_store.get_session("C123", "1.0", "U123") == "session-2"
-        assert session_store.get_session("C123", "1.0", "U456") is None
+        assert (
+            await conversation_store.get_history("C123", "1.0", "U123")
+            == UPDATED_HISTORY
+        )
+        assert await conversation_store.get_history("C123", "1.0", "U456") is None

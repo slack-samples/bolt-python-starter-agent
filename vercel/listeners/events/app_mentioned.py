@@ -9,7 +9,7 @@ from slack_sdk.web.async_client import AsyncWebClient
 
 from agent import AgentDeps, run_agent
 from listeners.views.feedback_builder import build_feedback_blocks
-from thread_context import session_store
+from thread_context import conversation_store
 
 
 async def handle_app_mentioned(
@@ -49,8 +49,8 @@ async def handle_app_mentioned(
             ],
         )
 
-        # Get session ID for conversation context
-        existing_session_id = session_store.get_session(
+        # Get conversation history
+        history = await conversation_store.get_history(
             channel_id, thread_ts, context.user_id
         )
 
@@ -63,8 +63,8 @@ async def handle_app_mentioned(
             message_ts=event["ts"],
             user_token=context.user_token,
         )
-        response_text, new_session_id = await run_agent(
-            cleaned_text, session_id=existing_session_id, deps=deps
+        response_text, messages = await run_agent(
+            cleaned_text, deps, message_history=history
         )
 
         # Stream response in thread with feedback buttons
@@ -73,11 +73,10 @@ async def handle_app_mentioned(
         feedback_blocks = build_feedback_blocks()
         await streamer.stop(blocks=feedback_blocks)
 
-        # Store session ID for future context
-        if new_session_id:
-            session_store.set_session(
-                channel_id, thread_ts, context.user_id, new_session_id
-            )
+        # Store conversation history
+        await conversation_store.set_history(
+            channel_id, thread_ts, context.user_id, messages
+        )
 
     except Exception as e:
         logger.exception("Failed to handle app mention")

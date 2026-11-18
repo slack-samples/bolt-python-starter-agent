@@ -1,19 +1,27 @@
 import logging
 from unittest.mock import AsyncMock, Mock, patch
 
+import ai
 import pytest
+import pytest_asyncio
 from slack_bolt.context.async_context import AsyncBoltContext
 from slack_sdk.web.async_client import AsyncWebClient
 
 from listeners.events.app_mentioned import handle_app_mentioned
-from thread_context import session_store
+from thread_context import conversation_store
 
 test_logger = logging.getLogger(__name__)
 
+FIRST_HISTORY = [ai.user_message("look into this"), ai.assistant_message("On it")]
+SECOND_HISTORY = [ai.user_message("what did you find?"), ai.assistant_message("Hi")]
+
 
 class TestAppMentioned:
+    @pytest_asyncio.fixture(autouse=True)
+    async def setup_history(self):
+        await conversation_store.set_history("C234", "1.0", "U123", FIRST_HISTORY)
+
     def setup_method(self):
-        session_store.set_session("C234", "1.0", "U123", "session-1")
         self.fake_client = Mock(AsyncWebClient)
         self.fake_client.reactions_add = AsyncMock()
         self.fake_context = Mock(AsyncBoltContext)
@@ -25,7 +33,7 @@ class TestAppMentioned:
     async def test_starts_a_separate_session_for_a_second_person_in_the_thread(self):
         with patch(
             "listeners.events.app_mentioned.run_agent",
-            AsyncMock(return_value=("Hi", "session-2")),
+            AsyncMock(return_value=("Hi", SECOND_HISTORY)),
         ) as fake_run_agent:
             await handle_app_mentioned(
                 client=self.fake_client,
@@ -45,6 +53,11 @@ class TestAppMentioned:
                 set_status=AsyncMock(),
             )
 
-        assert fake_run_agent.call_args.kwargs["session_id"] is None
-        assert session_store.get_session("C234", "1.0", "U456") == "session-2"
-        assert session_store.get_session("C234", "1.0", "U123") == "session-1"
+        assert fake_run_agent.call_args.kwargs["message_history"] is None
+        assert (
+            await conversation_store.get_history("C234", "1.0", "U456")
+            == SECOND_HISTORY
+        )
+        assert (
+            await conversation_store.get_history("C234", "1.0", "U123") == FIRST_HISTORY
+        )
