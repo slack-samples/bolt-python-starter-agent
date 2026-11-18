@@ -130,6 +130,8 @@ cd my-starter-agent/vercel
 
 ### Setup your python virtual environment
 
+This app needs Python 3.12 or later.
+
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead should work
@@ -259,7 +261,11 @@ ruff format
 
 ### `wait_until_runner.py`
 
-`wait_until_runner.py` runs the agent's long listeners as Bolt lazy listeners, handing each one to Vercel's `wait_until` so Slack gets its acknowledgment right away while the agent keeps working. Outside Vercel, such as with `slack run`, the listeners run on the app's event loop.
+`wait_until_runner.py` runs the agent's long listeners as Bolt lazy listeners, handing each one to Vercel's `wait_until` so Slack gets its acknowledgment right away while the agent keeps working. Only `app_vercel.py` installs it. `app.py`, which `slack run` starts, uses Bolt's default lazy listener runner.
+
+### `.vercelignore`
+
+`.vercelignore` keeps your local `.env` and the Slack CLI's `.slack/` folder out of what `npx vercel deploy` uploads. Set values for Vercel with `npx vercel env add` instead.
 
 ### `/listeners`
 

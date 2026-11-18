@@ -8,7 +8,6 @@ dependencies = [
     "slack-cli-hooks==0.3.0",
     "ai[mcp,vercel]==0.10.0",
     "vercel==0.13.0",
-    "vercel-blob==0.6.0",
     "aiohttp==3.14.5",
     "python-dotenv==1.2.4",
 ]

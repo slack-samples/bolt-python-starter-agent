@@ -13,7 +13,7 @@ This repo contains the same app built with four different AI agent frameworks. P
 | **Pydantic AI** | `pydantic-ai/` | [View README](./pydantic-ai/README.md) | [pydantic-ai](https://ai.pydantic.dev/) |
 | **Vercel AI SDK** | `vercel/` | [View README](./vercel/README.md) | [ai](https://ai-python.dev/) |
 
-All implementations share the same Slack listener layer and the same user experience. The only difference is how the agent is defined and executed under the hood.
+All implementations share the same Slack listener layer and the same user experience. The only difference is how the agent is defined and executed under the hood, except that `vercel/` also deploys to Vercel Functions and keeps installations and conversation history in Vercel storage.
 
 ## Claude Code, Codex, Cursor, and Other Coding Agents
 
