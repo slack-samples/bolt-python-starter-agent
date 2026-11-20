@@ -317,9 +317,7 @@ ruff format
 
 `app_vercel.py` is an alternative entry point that runs the app over HTTP on Vercel instead of Socket Mode. This is intended for deployments that use OAuth for app distribution, and `npx vercel dev` runs the same entry point locally. `pyproject.toml` names its ASGI `handler` in `[tool.vercel]`, so Vercel serves it at `/slack/events`, `/slack/install`, and `/slack/oauth_redirect`. See the Using OAuth locally with Vercel and Deploy to Vercel sections under Development for setup instructions.
 
-### `wait_until_runner.py`
-
-`wait_until_runner.py` runs the agent's long listeners as Bolt lazy listeners, handing each one to Vercel's `wait_until` so Slack gets its acknowledgment right away while the agent keeps working. Only `app_vercel.py` installs it. `app.py`, which `slack run` starts, uses Bolt's default lazy listener runner.
+It runs the agent's long listeners as Bolt lazy listeners and hands each one to Vercel's `wait_until`, so Slack gets its acknowledgment right away while the agent keeps working. `app.py`, which `slack run` starts, uses Bolt's default lazy listener runner.
 
 ### `.vercelignore`
 

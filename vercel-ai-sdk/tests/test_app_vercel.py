@@ -1,12 +1,17 @@
+import asyncio
 import importlib
 import json
+import logging
 import time
 from unittest.mock import AsyncMock, patch
 
 import pytest
 from slack_bolt.context.async_context import AsyncBoltContext
+from slack_bolt.request.async_request import AsyncBoltRequest
 from slack_sdk.signature import SignatureVerifier
 from vercel.blob import BlobNotFoundError
+
+test_logger = logging.getLogger(__name__)
 
 
 @pytest.fixture(scope="module")
@@ -93,3 +98,31 @@ class TestAppVercel:
 
         assert result.bot_token == "xoxb-fallback"
         assert result.bot_user_id == "UBOT"
+
+
+class TestWaitUntilLazyListenerRunner:
+    @pytest.fixture(autouse=True)
+    def setup(self, app_vercel):
+        self.runner = app_vercel.WaitUntilLazyListenerRunner(test_logger)
+        self.request = AsyncBoltRequest(body="{}", headers={})
+        self.finished = asyncio.Event()
+
+    async def lazy_function(self):
+        self.finished.set()
+
+    @pytest.mark.asyncio
+    async def test_runner_hands_task_to_wait_until(self):
+        with patch("app_vercel.wait_until") as fake_wait_until:
+            self.runner.start(function=self.lazy_function, request=self.request)
+
+        fake_wait_until.assert_called_once()
+        task = fake_wait_until.call_args.args[0]
+        assert isinstance(task, asyncio.Task)
+        await task
+        assert self.finished.is_set()
+
+    @pytest.mark.asyncio
+    async def test_runner_runs_without_vercel_context(self):
+        self.runner.start(function=self.lazy_function, request=self.request)
+
+        await asyncio.wait_for(self.finished.wait(), timeout=1)

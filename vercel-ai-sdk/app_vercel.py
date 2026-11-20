@@ -1,17 +1,22 @@
+import asyncio
 import json
 import logging
 import os
+from collections.abc import Awaitable, Callable
 from pathlib import Path
 
 from slack_bolt.adapter.asgi.async_handler import AsyncSlackRequestHandler
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.authorization.authorize_result import AuthorizeResult
+from slack_bolt.lazy_listener.async_internals import to_runnable_function
+from slack_bolt.lazy_listener.asyncio_runner import AsyncioLazyListenerRunner
 from slack_bolt.oauth.async_oauth_settings import AsyncOAuthSettings
+from slack_bolt.request.async_request import AsyncBoltRequest
 from slack_sdk.web.async_client import AsyncWebClient
+from vercel.functions import wait_until
 
 from listeners import register_listeners
 from oauth import BlobInstallationStore, RuntimeCacheOAuthStateStore
-from wait_until_runner import WaitUntilLazyListenerRunner
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -91,6 +96,26 @@ if _fallback_bot_token:
             return None
 
     oauth_settings.authorize = _authorize_with_fallback_bot_token
+
+
+class WaitUntilLazyListenerRunner(AsyncioLazyListenerRunner):
+    """Run each lazy listener as a task that keeps the Vercel Function alive.
+
+    Outside of Vercel, wait_until does nothing and the task runs on the loop.
+    """
+
+    def start(
+        self, function: Callable[..., Awaitable[None]], request: AsyncBoltRequest
+    ) -> None:
+        task = asyncio.ensure_future(
+            to_runnable_function(
+                internal_func=function,
+                logger=self.logger,
+                request=request,
+            )
+        )
+        wait_until(task)
+
 
 # ---------------------------------------------------------------------------
 # App
