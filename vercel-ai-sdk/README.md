@@ -86,7 +86,7 @@ slack login
 #### Initializing the project
 
 ```sh
-slack create my-starter-agent --template slack-samples/bolt-python-starter-agent --subdir vercel
+slack create my-starter-agent --template slack-samples/bolt-python-starter-agent --subdir vercel-ai-sdk
 cd my-starter-agent
 ```
 
@@ -123,7 +123,7 @@ SLACK_APP_TOKEN=YOUR_SLACK_APP_TOKEN
 
 ```sh
 git clone https://github.com/slack-samples/bolt-python-starter-agent.git my-starter-agent
-cd my-starter-agent/vercel
+cd my-starter-agent/vercel-ai-sdk
 ```
 
 </details>

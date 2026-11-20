@@ -9,7 +9,7 @@ A monorepo with four functionally identical implementations of the Starter Agent
 - `claude-agent-sdk/`: Claude Agent SDK
 - `openai-agents-sdk/`: OpenAI Agents SDK
 - `pydantic-ai/`: Pydantic AI
-- `vercel/`: AI SDK for Python, deployed to Vercel
+- `vercel-ai-sdk/`: AI SDK for Python, deployed to Vercel
 
 Work and run commands inside one of them. Keep the four in parity: a user-facing change to one usually belongs in the others.
 

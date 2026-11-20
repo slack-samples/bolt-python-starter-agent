@@ -79,7 +79,7 @@ def build_app_home_view(
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "\U0001f534 *Slack MCP Server is disconnected.* <https://github.com/slack-samples/bolt-python-starter-agent/blob/main/vercel/README.md#slack-mcp-server|Learn how to enable the Slack MCP Server.>",
+                    "text": "\U0001f534 *Slack MCP Server is disconnected.* <https://github.com/slack-samples/bolt-python-starter-agent/blob/main/vercel-ai-sdk/README.md#slack-mcp-server|Learn how to enable the Slack MCP Server.>",
                 },
             }
         )

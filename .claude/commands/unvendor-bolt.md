@@ -12,9 +12,9 @@ Switch from the vendored bolt-python wheel to the latest published `slack-bolt` 
    rm -rf vendor
    ```
 
-3. In all four `requirements.txt` files (`claude-agent-sdk/requirements.txt`, `openai-agents-sdk/requirements.txt`, `pydantic-ai/requirements.txt`, `vercel/requirements.txt`), replace the `../vendor/slack_bolt-*.whl` line with `slack-bolt>=<version>` using the version from step 1.
+3. In all four `requirements.txt` files (`claude-agent-sdk/requirements.txt`, `openai-agents-sdk/requirements.txt`, `pydantic-ai/requirements.txt`, `vercel-ai-sdk/requirements.txt`), replace the `../vendor/slack_bolt-*.whl` line with `slack-bolt>=<version>` using the version from step 1.
 
-4. In all four `pyproject.toml` files (`claude-agent-sdk/pyproject.toml`, `openai-agents-sdk/pyproject.toml`, `pydantic-ai/pyproject.toml`, `vercel/pyproject.toml`), replace the comment `# slack-bolt is installed from a vendored whl — see ../vendor/` with an actual dependency `"slack-bolt>=<version>"` using the version from step 1.
+4. In all four `pyproject.toml` files (`claude-agent-sdk/pyproject.toml`, `openai-agents-sdk/pyproject.toml`, `pydantic-ai/pyproject.toml`, `vercel-ai-sdk/pyproject.toml`), replace the comment `# slack-bolt is installed from a vendored whl — see ../vendor/` with an actual dependency `"slack-bolt>=<version>"` using the version from step 1.
 
 5. For each implementation directory, if a `.venv` virtual environment exists, activate it and install the updated requirements:
    ```

@@ -5,7 +5,7 @@ updates:
       - "/openai-agents-sdk"
       - "/pydantic-ai"
       - "/claude-agent-sdk"
-      - "/vercel"
+      - "/vercel-ai-sdk"
     schedule:
       interval: "weekly"
     labels:
