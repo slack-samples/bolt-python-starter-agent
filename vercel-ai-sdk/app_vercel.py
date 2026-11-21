@@ -18,7 +18,7 @@ from vercel.functions import wait_until
 from listeners import register_listeners
 from oauth import BlobInstallationStore, RuntimeCacheOAuthStateStore
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
