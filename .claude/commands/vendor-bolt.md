@@ -28,7 +28,7 @@ Update the vendored bolt-python wheel to the latest commit on the `main` branch.
    cp dist/slack_bolt-*.whl ../vendor/
    ```
 
-6. Update the whl filename in all three `requirements.txt` files (`claude-agent-sdk/requirements.txt`, `openai-agents-sdk/requirements.txt`, `pydantic-ai/requirements.txt`). Replace the existing `../vendor/slack_bolt-*.whl` line with the new filename.
+6. Update the whl filename in all four `requirements.txt` files (`claude-agent-sdk/requirements.txt`, `openai-agents-sdk/requirements.txt`, `pydantic-ai/requirements.txt`, `vercel-ai-sdk/requirements.txt`). Replace the existing `../vendor/slack_bolt-*.whl` line with the new filename.
 
 7. Clean up the build directory:
    ```
