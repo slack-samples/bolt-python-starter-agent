@@ -1,0 +1,55 @@
+# Build
+build/
+dist/
+docs/_sources/
+docs/.doctrees
+
+# Claude Code
+.claude/*.local.json
+
+# Coverage
+.coverage
+cov_*
+coverage.xml
+
+# Editors
+.idea/
+
+# Environment
+.env*
+!.env.sample
+env*/
+venv/
+.venv*
+
+# Logs
+logs/
+
+# macOS
+.DS_Store
+
+# OAuth
+data/
+
+# Python
+__pycache__/
+*.db
+*.egg
+*.egg-info/
+*.eggs/
+*.py[cod]
+*.so
+.mypy_cache/
+.pytype/
+.python-version
+*~
+pip
+
+# Testing
+.cache
+.pytest_cache/
+.tox
+tmp.txt
+
+# Vercel
+.vercel/
